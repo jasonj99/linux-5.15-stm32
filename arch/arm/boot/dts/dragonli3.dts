@@ -60,6 +60,19 @@
 		reg = <0xC0000000 0x2000000>;
 	};
 
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		linux,cma {
+			compatible = "shared-dma-pool";
+			no-map;
+			size = <0x100000>;
+			linux,dma-default;
+		};
+	};
+
 	aliases {
 		gpio0   = &gpioa;
 		gpio1   = &gpiob;
