@@ -499,7 +499,7 @@
 		exti: interrupt-controller@40013c00 {
 			compatible = "st,stm32-exti";
 			interrupt-controller;
-			#interrupt-cells = <2>;
+			#interrupt-cells= <2>;
 			reg = <0x40013C00 0x400>;
 			interrupts = <1>, <2>, <3>, <6>, <7>, <8>, <9>, <10>, <23>, <40>, <41>, <42>, <62>, <76>;
 		};
@@ -590,6 +590,8 @@
 				     <47>;
 			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(DMA1)>;
 			#dma-cells = <4>;
+			dma-channels = <8>;
+			dma-requests = <8>;
 			status = "disabled";
 		};
 
@@ -607,6 +609,8 @@
 			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(DMA2)>;
 			#dma-cells = <4>;
 			st,mem2mem;
+			dma-channels = <8>;
+			dma-requests = <8>;
 			status = "disabled";
 		};
 
@@ -628,37 +632,6 @@
 			interrupts = <67>;
 			clocks = <&rcc 0 STM32F7_AHB2_CLOCK(OTGFS)>;
 			clock-names = "otg";
-			status = "disabled";
-		};
-
-		qspi: spi@A0001000 {
-			compatible = "st,stm32f469-qspi";
-			#address-cells = <1>;
-			#size-cells = <0>;
-			reg = <0xA0001000 0x1000>, <0x90000000 0x10000000>;
-			reg-names = "qspi", "qspi_mm";
-			interrupts = <92>;
-			spi-max-frequency = <108000000>;
-			clocks = <&rcc 0 STM32F7_AHB3_CLOCK(QSPI)>;
-			resets = <&rcc STM32F7_AHB3_RESET(QSPI)>;
-
-			status = "disabled";
-		};
-
-		mac: ethernet@40028000 {
-			compatible = "st,stm32-dwmac", "snps,dwmac-3.50a";
-			reg = <0x40028000 0x8000>;
-			reg-names = "stmmaceth";
-			interrupts = <61>;
-			interrupt-names = "macirq";
-			clock-names = "stmmaceth", "mac-clk-tx", "mac-clk-rx";
-			clocks = <&rcc 0 STM32F7_AHB1_CLOCK(ETHMAC)>,
-				 	 <&rcc 0 STM32F7_AHB1_CLOCK(ETHMACTX)>,
-				 	 <&rcc 0 STM32F7_AHB1_CLOCK(ETHMACRX)>;
-			st,syscon = <&syscfg 0x4>;
-			snps,pbl = <8>;
-			snps,mixed-burst;
-			
 			status = "disabled";
 		};
 	};
