@@ -45,7 +45,7 @@
 #include "stm32f746-pinctrl.dtsi"
 #include <dt-bindings/input/input.h>
 #include <dt-bindings/gpio/gpio.h>
-
+#include <dt-bindings/leds/common.h>
 / {
 	model = "Dragonli3 STM32F746 board";
 	compatible = "st, dragonli3", "st,stm32f746";
@@ -99,9 +99,26 @@
 
 	leds {
 		compatible = "gpio-leds";
-		led-green {
+		led-green1 {
 			gpios = <&gpioe 4 GPIO_ACTIVE_LOW>;
 			linux,default-trigger = "heartbeat";
+		};
+
+		led-green2 {
+			gpios = <&gpioe 3 GPIO_ACTIVE_LOW>;
+			function = LED_FUNCTION_MTD;
+			trigger-sources  = <&sdio1>;
+		};
+
+		led-green3 {
+			gpios = <&gpioh 1 GPIO_ACTIVE_LOW>;
+			function = LED_FUNCTION_MTD;
+			trigger-sources  = <&qspi>;
+		};
+
+		led-green4 {
+			gpios = <&gpioh 15 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "none";
 		};
 	};
 };
@@ -353,5 +370,9 @@
 };
 
 &crc {
+	status = "okay";
+};
+
+&rng {
 	status = "okay";
 };
