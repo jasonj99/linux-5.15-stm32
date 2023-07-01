@@ -324,6 +324,44 @@
 		spi-tx-bus-width = <4>;
 		spi-rx-bus-width = <4>;
 		reg = <0>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			/* 32K(u-boot-env),128k(kernel-dtb),864k(reserved1),3m(kernel),8m(rootfs),4m(reserved2) */
+			partitions@0 {
+				label = "u-boot-env";
+				reg = <0x0 0x8000>;
+			};
+
+			partitions@1 {
+				label = "kernel-dtb";
+				reg = <0x8000 0x20000>;
+			};
+
+			partitions@2 {
+				label = "reserved1";
+				reg = <0x280000 0xD8000>;
+			};
+
+			partitions@3 {
+				label = "kernel";
+				reg = <0x100000 0x300000>;
+			};
+
+			partitions@4 {
+				label = "rootfs";
+				reg = <0x400000 0x800000>;
+			};
+
+			partitions@5 {
+				label = "reserved2";
+				reg = <0xC00000 0x400000>;
+			};
+		};
+
 	};
 };
 
